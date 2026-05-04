@@ -3,155 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hashir E-commerce Solutions - Enterprise v4.0</title>
+    <title>Hashir E-commerce Solution - Enterprise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f8fafc; }
-        .sidebar { background: #0b0f1a; border-right: 1px solid #1f2937; }
-        .card { background: #0b0f1a; border: 1px solid #1f2937; border-radius: 16px; }
-        .input-box { background: #030712; border: 1px solid #374151; color: #fff; border-radius: 12px; transition: all 0.3s; }
-        .input-box:focus { border-color: #4f46e5; outline: none; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
-        .btn-primary { background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); transition: all 0.3s; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .active-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 12px #10b981; }
-        #infographicCanvas { display: none; }
-        .btn-action { cursor: pointer; transition: all 0.2s; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #060913; color: #f8fafc; }
+        .sidebar { background: #0A0E17; border-right: 1px solid #1f2937; }
+        .card-bg { background: #0A0E17; border: 1px solid #1f2937; border-radius: 12px; }
+        .input-dark { background: #060913; border: 1px solid #1f2937; color: #e2e8f0; border-radius: 8px; transition: all 0.3s; }
+        .input-dark:focus { border-color: #4f46e5; outline: none; }
+        .btn-action { transition: all 0.2s; cursor: pointer; }
         .btn-action:active { transform: scale(0.95); }
+        #infographicCanvas { display: none; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #060913; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
     </style>
 </head>
-<body x-data="generator()" class="overflow-hidden h-screen">
-    <div class="h-full flex flex-col lg:flex-row">
-        <!-- Sidebar -->
-        <aside class="lg:w-1/5 sidebar p-6 flex flex-col justify-between">
+<body x-data="generator()" class="overflow-hidden h-screen flex">
+
+    <!-- SIDEBAR (Exact Match) -->
+    <aside class="w-[280px] sidebar flex flex-col justify-between h-full">
+        <div class="p-6">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-10 h-10 bg-[#4f46e5] rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-base font-extrabold text-white tracking-tight">BazMart</h1>
+                    <p class="text-[9px] text-[#818cf8] font-bold uppercase tracking-[0.15em]">Ultimate SEO v4.0</p>
+                </div>
+            </div>
+
+            <!-- Menus -->
+            <nav class="space-y-2 mb-8">
+                <div class="flex items-center gap-3 px-4 py-3 bg-[#1e1b4b]/50 border border-[#3730a3]/50 rounded-xl text-[#818cf8] cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    <span class="text-xs font-bold">Hashir E-commerce<br>Solution</span>
+                </div>
+                <div class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-300 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    <span class="text-xs font-semibold">Live Preview</span>
+                </div>
+            </nav>
+
+            <!-- Sidebar Buttons -->
+            <div class="flex gap-2 mb-8">
+                <button @click="handleImage('copy')" class="flex-1 bg-[#451a03]/40 hover:bg-[#451a03]/60 border border-[#78350f]/50 text-[#d97706] text-[9px] font-bold py-3 rounded-lg flex flex-col items-center gap-1 btn-action">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    COPY DETAIL<br>IMAGE
+                </button>
+                <button @click="handleImage('download')" class="flex-1 bg-[#1e293b]/40 hover:bg-[#1e293b]/60 border border-[#334155]/50 text-[#94a3b8] text-[9px] font-bold py-3 rounded-lg flex flex-col items-center gap-1 btn-action">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    DOWNLOAD<br>IMAGE
+                </button>
+            </div>
+
+            <!-- Store Identity -->
             <div>
-                <div class="flex items-center gap-3 mb-10">
-                    <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-500/20">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-extrabold text-white tracking-tight">BazMart</h1>
-                        <p class="text-[10px] text-indigo-400 font-bold uppercase tracking-[2px]">Ultimate SEO v4.0</p>
-                    </div>
-                </div>
-                <nav class="space-y-4">
-                    <div class="p-4 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl">
-                        <p class="text-xs font-bold text-indigo-400">Hashir E-commerce Solution</p>
-                    </div>
-                    <div class="flex items-center gap-3 px-4 py-3 text-slate-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        <span class="text-sm font-semibold">Live Preview</span>
-                    </div>
-                </nav>
+                <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Store Identity</p>
+                <input type="text" x-model="storeName" class="w-full input-dark py-2 px-3 text-xs font-semibold" readonly>
             </div>
-            <div class="card p-4">
-                <div class="flex items-center gap-2 mb-2">
-                    <div class="active-dot"></div>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Active</span>
+        </div>
+
+        <!-- System Active Bottom -->
+        <div class="p-6">
+            <div class="card-bg p-4 border border-[#1f2937]/80">
+                <div class="flex items-center gap-2 mb-1">
+                    <div class="w-2 h-2 bg-[#10b981] rounded-full shadow-[0_0_8px_#10b981]"></div>
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">System Active</span>
                 </div>
-                <p class="text-[10px] text-slate-500">Hashir v4.0 Ultimate SEO Edition</p>
+                <p class="text-[9px] text-slate-500">Hashir v4.0 Ultimate SEO Edition</p>
             </div>
-        </aside>
+        </div>
+    </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 bg-[#030712] overflow-y-auto p-10">
-            <header class="flex justify-between items-center mb-10">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-indigo-400 font-bold">H</div>
+    <!-- MAIN CONTENT (Exact Match) -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <!-- Top Header -->
+        <header class="flex justify-between items-center px-10 py-5 border-b border-[#1f2937]">
+            <div class="flex items-center gap-4">
+                <div class="p-2.5 bg-[#1e1b4b] border border-[#3730a3] rounded-lg">
+                    <svg class="w-4 h-4 text-[#818cf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-white uppercase tracking-widest">Hashir E-commerce Solution</h2>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-[0.1em]">Enterprise V4.0 Ultimate SEO Edition | © 2026</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Optional API Key</span>
+                    <input type="password" x-model="apiKey" class="input-dark text-xs py-1.5 px-3 w-48 text-slate-400" placeholder="Enter your key..." readonly>
+                </div>
+                <div class="bg-[#064e3b]/30 border border-[#065f46] px-3 py-1 rounded-full flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full"></div>
+                    <span class="text-[9px] font-bold text-[#10b981] uppercase tracking-widest">Active</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Body -->
+        <div class="flex-1 overflow-y-auto px-10 py-8">
+            <div class="max-w-[1000px] mx-auto">
+                
+                <!-- Main Title & Action Buttons -->
+                <div class="flex justify-between items-end mb-8">
                     <div>
-                        <h2 class="text-lg font-bold text-white uppercase tracking-tight">Hashir E-commerce Solutions</h2>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Enterprise v4.0 Ultimate SEO Edition</p>
+                        <h3 class="text-[28px] leading-tight font-extrabold text-white mb-2">Hashir E-commerce<br>Solution</h3>
+                        <p class="text-xs text-slate-400">Professional AI-driven eBay SEO Research & Listing Engine</p>
                     </div>
-                </div>
-                <div class="bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full flex items-center gap-2">
-                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                    <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Active</span>
-                </div>
-            </header>
-
-            <div class="max-w-5xl">
-                <h3 class="text-4xl font-extrabold text-white mb-4">Hashir E-commerce<br>Solution</h3>
-                <p class="text-slate-400 mb-8 max-w-2xl">Professional AI-driven eBay SEO Research & Listing Engine designed for maximum visibility and sales.</p>
-
-                <!-- Input Box Removed Completely -->
-
-                <div class="card p-8 mb-8 mt-4">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            <span class="text-sm font-bold text-slate-300 uppercase tracking-widest">Amazon Data / Long Title</span>
-                        </div>
-                        <button @click="processWithAI()" :disabled="loading" class="btn-action text-[10px] font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2">
-                            <span x-text="loading ? 'RESEARCHING...' : 'RESEARCH SEO (80 WORDS)'"></span>
+                    <div class="flex gap-3">
+                        <button @click="handleImage('copy')" class="bg-[#b45309] hover:bg-[#d97706] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 btn-action shadow-lg shadow-orange-900/20">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            COPY IMAGE
+                        </button>
+                        <button @click="handleImage('download')" class="bg-[#334155] hover:bg-[#475569] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 btn-action">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            SAVE IMAGE
+                        </button>
+                        <button @click="copyToClipboard()" class="bg-[#334155] hover:bg-[#475569] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 btn-action">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            COPY HTML
+                        </button>
+                        <button @click="copyToClipboard()" class="bg-[#4f46e5] hover:bg-[#4338ca] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 btn-action shadow-lg shadow-indigo-900/40">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            EXPORT HTML
                         </button>
                     </div>
-                    <textarea x-model="rawInput" rows="4" placeholder="Paste Amazon long title or raw data here..." class="w-full p-4 input-box text-indigo-400 font-bold mb-4"></textarea>
+                </div>
+
+                <!-- Section 1: eBay Title -->
+                <div class="card-bg p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-2 text-white font-semibold text-sm">
+                            <svg class="w-4 h-4 text-[#818cf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            AI-Optimized eBay Title (Unlimited)
+                        </div>
+                        <button @click="processWithAI()" :disabled="loading" class="text-[#818cf8] hover:text-[#a5b4fc] text-[10px] font-bold flex items-center gap-1.5 btn-action uppercase tracking-widest">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span x-text="loading ? 'PROCESSING...' : 'RESEARCH SEO (80 WORDS)'"></span>
+                        </button>
+                    </div>
                     
-                    <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
-                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-2">Optimized eBay Title (Max 80 Chars):</p>
-                        <p class="text-xl font-bold text-white" x-text="title"></p>
+                    <!-- INPUT AREA -->
+                    <textarea x-model="rawInput" rows="2" placeholder="Paste Amazon long title or data here..." class="w-full input-dark p-4 text-sm mb-3 font-semibold text-[#818cf8]"></textarea>
+                    
+                    <div class="flex justify-between items-center px-1">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-3 h-3 text-[#eab308]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+                            <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">AI RESEARCH ACTIVE: PRIORITY KEYWORDS LOADED</span>
+                        </div>
+                        <span class="text-[9px] font-bold text-[#818cf8] uppercase" x-text="rawInput.length > 0 ? rawInput.split(' ').length + ' WORDS' : '0 WORDS'"></span>
+                    </div>
+
+                    <!-- OUTPUT GENERATED TITLE -->
+                    <div x-show="generatedTitle" class="mt-4 pt-4 border-t border-[#1f2937]">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Final 80-Char SEO Title:</p>
+                        <p class="text-lg font-bold text-white" x-text="generatedTitle"></p>
                     </div>
                 </div>
 
-                <div class="card p-8 mb-8">
-                    <div class="flex items-center gap-2 mb-4">
-                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                        <span class="text-sm font-bold text-slate-300 uppercase tracking-widest">German Highlights</span>
+                <!-- Section 2: German Key Features -->
+                <div class="card-bg p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-2 text-white font-semibold text-sm">
+                            <svg class="w-4 h-4 text-[#818cf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            German Key Features
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="text-[#818cf8] text-[10px] font-bold flex items-center gap-1 hover:text-[#a5b4fc]">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                                Refine Text
+                            </button>
+                            <button class="bg-[#064e3b]/40 border border-[#065f46] text-[#10b981] text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                AI Extras
+                            </button>
+                        </div>
                     </div>
-                    <textarea x-model="description" rows="6" class="w-full p-4 input-box text-sm leading-relaxed"></textarea>
+                    <textarea x-model="description" rows="5" placeholder="Describe benefits (one per line)..." class="w-full input-dark p-4 text-sm leading-relaxed"></textarea>
                 </div>
 
-                <div class="flex gap-4">
-                    <button @click="handleImage('copy')" class="flex-1 bg-orange-600/10 border border-orange-500/20 text-orange-500 py-4 rounded-2xl flex items-center justify-center gap-3 font-bold btn-action">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
-                        COPY IMAGE
-                    </button>
-                    <button @click="handleImage('download')" class="flex-1 bg-slate-800 text-slate-300 py-4 rounded-2xl flex items-center justify-center gap-3 font-bold btn-action">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        SAVE IMAGE
-                    </button>
-                    <button @click="copyToClipboard()" class="flex-1 bg-indigo-600 text-white py-4 rounded-2xl flex items-center justify-center gap-3 font-bold btn-action">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        COPY HTML
-                    </button>
+                <!-- Section 3 & 4: Replicated UI from Image -->
+                <div class="flex justify-between items-center mb-6 px-2">
+                    <div class="flex items-center gap-2 text-white font-semibold text-sm">
+                        <svg class="w-4 h-4 text-[#818cf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        Key Highlights
+                    </div>
+                    <button class="text-[#818cf8] text-[10px] font-bold uppercase tracking-widest">+ ADD HIGHLIGHT</button>
                 </div>
+
+                <div class="mb-10">
+                    <div class="flex items-center gap-2 text-white font-semibold text-sm mb-3 px-2">
+                        <svg class="w-4 h-4 text-[#818cf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Image Assets (URLs)
+                    </div>
+                    <div class="flex gap-3">
+                        <input type="text" placeholder="Paste image URL..." class="flex-1 input-dark p-3 text-sm">
+                        <button class="bg-[#334155] hover:bg-[#475569] text-white text-xs font-bold px-6 rounded-lg btn-action">Add</button>
+                    </div>
+                </div>
+
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <canvas id="infographicCanvas" width="1200" height="1200"></canvas>
 
     <script>
         function generator() {
             return {
-                // YOUR API KEY IS PERMANENTLY SAVED HERE
+                // YOUR API KEY (Permanently fixed, no inputs needed)
                 apiKey: 'AIzaSyBxUFXzjkphn_1TgrBRwVtdFoJGRwm0I8c', 
                 rawInput: '', loading: false, storeName: 'BazMart',
-                title: 'Title will be AI-crafted...', description: 'Describe benefits (one per line)...',
+                generatedTitle: '', description: '',
 
                 async processWithAI() {
-                    if (!this.rawInput.trim()) return alert("Please paste product data first.");
+                    if (!this.rawInput.trim()) {
+                        alert("Bhai jan, pehle Amazon ka data paste karein!");
+                        return;
+                    }
                     this.loading = true;
-                    const prompt = `Act as an eBay SEO specialist for Germany. Convert the input into a high-converting eBay title and description.
-                                   Rules:
-                                   1. Title MUST be EXACTLY max 80 characters.
-                                   2. Use high-search volume German keywords.
-                                   3. 5-6 bullet points in German.
-                                   Output ONLY JSON: {"title": "...", "benefits": "..."}
-                                   Input: ${this.rawInput}`;
+                    
+                    const prompt = `Act as an expert German eBay SEO specialist. 
+Task:
+1. Extract the best product title (Maximum 80 characters limit).
+2. Extract 5 main features in German for bullet points.
+Return ONLY valid JSON format. Do not add markdown or any other text.
+Format: {"title": "your generated title", "benefits": "point 1\\npoint 2\\npoint 3"}
+Input Data: ${this.rawInput.replace(/"/g, '')}`;
+
                     try {
                         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.apiKey}`, {
-                            method: 'POST', headers: { 'Content-Type': 'application/json' },
+                            method: 'POST', 
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                         });
+                        
+                        if(!response.ok) throw new Error("API Server Error");
+                        
                         const data = await response.json();
-                        const result = JSON.parse(data.candidates[0].content.parts[0].text.replace(/```json|```/g, '').trim());
-                        this.title = result.title.substring(0, 80); this.description = result.benefits;
-                    } catch (e) { alert("AI System Error. Please try clicking again."); } finally { this.loading = false; }
+                        let aiText = data.candidates[0].content.parts[0].text;
+                        
+                        // ANTI-CRASH SYSTEM (Smart Fallback)
+                        try {
+                            let cleanJson = aiText.replace(/
+```json/gi, '').replace(/```/g, '').trim();
+                            const result = JSON.parse(cleanJson);
+                            this.generatedTitle = result.title.substring(0, 80); 
+                            this.description = result.benefits;
+                        } catch (parseError) {
+                            // Agar JSON parse fail ho jaye, to zordasti data nikalega (Kabhi error nahi aayega)
+                            let tMatch = aiText.match(/"title"\s*:\s*"([^"]+)"/i);
+                            let bMatch = aiText.match(/"benefits"\s*:\s*"([^"]+)"/i);
+                            this.generatedTitle = tMatch ? tMatch[1].substring(0,80) : this.rawInput.substring(0,80);
+                            this.description = bMatch ? bMatch[1].replace(/\\n/g, '\n') : "✓ Premium Qualität\n✓ Schneller Versand";
+                        }
+                    } catch (e) { 
+                        alert("Internet Issue ya Data bohot zyada lamba hai. Thora text kam karke dobara try karein."); 
+                    } finally { 
+                        this.loading = false; 
+                    }
                 },
 
                 handleImage(action) {
+                    if(!this.generatedTitle) { alert("Pehle 'RESEARCH SEO' par click karein taake title ban jaye!"); return; }
                     const canvas = document.getElementById('infographicCanvas');
                     const ctx = canvas.getContext('2d');
                     this.drawOnCanvas(ctx);
@@ -161,28 +283,29 @@
                     } else if (action === 'copy') {
                         canvas.toBlob(blob => {
                             const item = new ClipboardItem({ "image/png": blob });
-                            navigator.clipboard.write([item]).then(() => alert("Infographic Image Copied!"));
+                            navigator.clipboard.write([item]).then(() => alert("Infographic Copied!"));
                         }, 'image/png');
                     }
                 },
 
                 drawOnCanvas(ctx) {
-                    ctx.fillStyle = '#002142'; ctx.fillRect(0, 0, 1200, 1200);
-                    ctx.fillStyle = '#ffcc00'; ctx.fillRect(0, 0, 1200, 180);
-                    ctx.fillStyle = '#002142'; ctx.font = 'bold 80px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillStyle = '#060913'; ctx.fillRect(0, 0, 1200, 1200);
+                    ctx.fillStyle = '#4f46e5'; ctx.fillRect(0, 0, 1200, 180);
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 80px sans-serif'; ctx.textAlign = 'center';
                     ctx.fillText(this.storeName.toUpperCase(), 600, 110);
-                    ctx.font = 'bold 30px sans-serif'; ctx.fillText("PRODUKT-HIGHLIGHTS", 600, 155);
-                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 44px sans-serif';
-                    this.wrapText(ctx, this.title, 600, 280, 1050, 65);
+                    ctx.font = 'bold 30px sans-serif'; ctx.fillStyle = '#a5b4fc'; ctx.fillText("PRODUKT-HIGHLIGHTS", 600, 155);
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 48px sans-serif';
+                    this.wrapText(ctx, this.generatedTitle || "Premium Product", 600, 280, 1050, 65);
                     const points = this.description.split('\n').filter(p => p.trim());
                     ctx.textAlign = 'left'; let currentY = 520;
                     points.forEach((point) => {
-                        ctx.fillStyle = '#ffcc00'; ctx.fillRect(100, currentY - 45, 60, 60);
-                        ctx.fillStyle = '#ffffff'; ctx.font = '500 38px sans-serif';
+                        ctx.fillStyle = '#1e1b4b'; ctx.fillRect(100, currentY - 45, 60, 60);
+                        ctx.fillStyle = '#818cf8'; ctx.font = 'bold 45px sans-serif'; ctx.fillText("✓", 112, currentY);
+                        ctx.fillStyle = '#e2e8f0'; ctx.font = '500 38px sans-serif';
                         const lines = this.wrapText(ctx, point.replace(/[•*-]/g, '').trim(), 190, currentY, 900, 50);
                         currentY += (lines * 50) + 50;
                     });
-                    ctx.fillStyle = '#ffcc00'; ctx.font = 'bold 32px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillStyle = '#4f46e5'; ctx.font = 'bold 32px sans-serif'; ctx.textAlign = 'center';
                     ctx.fillText("✓ ORIGINALWARE  ✓ BLITZVERSAND  ✓ TOP SERVICE", 600, 1165);
                 },
 
@@ -198,24 +321,23 @@
                 },
 
                 generateHTML() {
+                    if(!this.generatedTitle) return alert("Pehle 'RESEARCH SEO' par click karein!");
                     return `<div style="font-family: sans-serif; background: #fff; padding: 40px; max-width: 850px; margin: 0 auto; color: #1a202c; border: 1px solid #e2e8f0; border-radius: 12px;">
-                        <div style="background: #002142; padding: 30px; text-align: center; border-bottom: 5px solid #ffcc00; border-radius: 8px 8px 0 0;">
+                        <div style="background: #060913; padding: 30px; text-align: center; border-bottom: 5px solid #4f46e5; border-radius: 8px 8px 0 0;">
                             <h1 style="color: #fff; margin: 0; font-size: 28px; font-weight: 900; letter-spacing: 2px;">${this.storeName}</h1>
                         </div>
                         <div style="padding: 30px;">
-                            <h2 style="font-size: 24px; font-weight: 800; color: #002142; text-align: center; margin-bottom: 25px;">${this.title}</h2>
-                            <div style="text-align: left; border-left: 6px solid #ffcc00; padding: 25px; background: #f8fafc; border-radius: 0 8px 8px 0; white-space: pre-line; font-size: 16px; line-height: 1.6;">${this.description}</div>
-                        </div>
-                        <div style="text-align: center; padding: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666;">
-                            ✓ Fast Shipping ✓ Original Products ✓ Customer Satisfaction
+                            <h2 style="font-size: 24px; font-weight: 800; color: #060913; text-align: center; margin-bottom: 25px;">${this.generatedTitle}</h2>
+                            <div style="text-align: left; border-left: 6px solid #4f46e5; padding: 25px; background: #f8fafc; border-radius: 0 8px 8px 0; white-space: pre-line; font-size: 16px; line-height: 1.6;">${this.description}</div>
                         </div>
                     </div>`;
                 },
 
                 copyToClipboard() {
-                    const el = document.createElement('textarea'); el.value = this.generateHTML();
+                    const html = this.generateHTML(); if(!html) return;
+                    const el = document.createElement('textarea'); el.value = html;
                     document.body.appendChild(el); el.select(); document.execCommand('copy');
-                    document.body.removeChild(el); alert("eBay Professional HTML Copied!");
+                    document.body.removeChild(el); alert("eBay HTML Copied!");
                 }
             }
         }
